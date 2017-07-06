@@ -44,70 +44,70 @@
 		</div>
 
 		<?php
-// 		if(isset($_FILES['file'])){
-// 			$file = $_FILES['file'];
-// //print_r($file);
+		if(isset($_FILES['file'])){
+			$file = $_FILES['file'];
+//print_r($file);
 
-// //file properties
+//file properties
 
-// 			$file_name = $file['name'];
-// 			$file_tmp = $file['tmp_name'];
-// 			$file_size = $file['size'];
-// 			$file_error = $file['error'];
-
-
-// //work out the file extension
-// 			$file_ext = explode('.',$file_name);
-// 			$file_ext = strtolower(end($file_ext));
-
-// 			$allowed = array('txt', 'jpg', 'mp4','mp3');
-
-// 			if($file_error === 0) {
-// 				if($file_size <= 209715299 * 99990000000000000000000000000000){
-// 					$withoutExt = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file_name);
-
-// 					$file_path = '/home/bite-five/Documents/Videos/'.$withoutExt.'/';
+			$file_name = $file['name'];
+			$file_tmp = $file['tmp_name'];
+			$file_size = $file['size'];
+			$file_error = $file['error'];
 
 
-// 					mkdir($file_path);
-// 					$file_name_new = $file['name'];
-// 					$file_destination = $file_path . $file_name_new;
-// 					if(move_uploaded_file($file_tmp, $file_destination)){
+//work out the file extension
+			$file_ext = explode('.',$file_name);
+			$file_ext = strtolower(end($file_ext));
 
-// 						echo "Uploded";
+			$allowed = array('txt', 'jpg', 'mp4','mp3');
 
-// 					}
-// 				}
-// 			}
+			if($file_error === 0) {
+				if($file_size <= 209715299 * 99990000000000000000000000000000){
+					$withoutExt = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file_name);
 
-
-// 			$file_flac = $withoutExt .'.flac';
-
-// 			$file_flac_destination = $file_path.$file_flac;
-
-// 			shell_exec("ffmpeg -i $file_destination -c:a flac $file_flac_destination");
-
-// 			$size = "1080x720";
-// 			for($num = 1; $num <= 10; $num++)
-// 			{
-// 				$file_image = $withoutExt.$num . '.jpg';
-
-// 				$file_image_destination =$file_path.$file_image;
-// 				$interval = $num * 10;
-
-// 				shell_exec("ffmpeg -i $file_destination -an -ss $interval -s $size $file_image_destination");
-
-// 			}
-
-// 			$ex = shell_exec('curl -X POST -u b23977c3-46fd-446e-8743-da3022c26541:LmlWYrznIeU6 --header "Content-Type: audio/flac" --header "Transfer-Encoding: chunked" --data-binary @'.$file_flac_destination.' "https://stream.watsonplatform.net/speech-to-text/api/v1/recognize"');
+					$file_path = '/home/bite-five/Documents/Videos/'.$withoutExt.'/';
 
 
+					mkdir($file_path);
+					$file_name_new = $file['name'];
+					$file_destination = $file_path . $file_name_new;
+					if(move_uploaded_file($file_tmp, $file_destination)){
 
-// 			$file_txt = $file_path.$withoutExt.'.txt';
-// 			$fh = fopen($file_txt, 'w') or die("can't open file");
-// 			fwrite($fh, $ex);
-// 			fclose($fh);
-// 		}
+						echo "Uploded";
+
+					}
+				}
+			}
+
+
+			$file_flac = $withoutExt .'.flac';
+
+			$file_flac_destination = $file_path.$file_flac;
+
+			shell_exec("ffmpeg -i $file_destination -c:a flac $file_flac_destination");
+
+			$size = "1080x720";
+			for($num = 1; $num <= 10; $num++)
+			{
+				$file_image = $withoutExt.$num . '.jpg';
+
+				$file_image_destination =$file_path.$file_image;
+				$interval = $num * 10;
+
+				shell_exec("ffmpeg -i $file_destination -an -ss $interval -s $size $file_image_destination");
+
+			}
+
+			$ex = shell_exec('curl -X POST -u b23977c3-46fd-446e-8743-da3022c26541:LmlWYrznIeU6 --header "Content-Type: audio/flac" --header "Transfer-Encoding: chunked" --data-binary @'.$file_flac_destination.' "https://stream.watsonplatform.net/speech-to-text/api/v1/recognize"');
+
+
+
+			$file_txt = $file_path.$withoutExt.'.txt';
+			$fh = fopen($file_txt, 'w') or die("can't open file");
+			fwrite($fh, $ex);
+			fclose($fh);
+		}
 
 
 		?>
@@ -204,79 +204,6 @@
 		}
 </script>
 
-<script type="text/javascript">
-	function onHe(){
-	<?php
-		if(isset($_FILES['file'])){
-			$file = $_FILES['file'];
-//print_r($file);
 
-//file properties
-
-			$file_name = $file['name'];
-			$file_tmp = $file['tmp_name'];
-			$file_size = $file['size'];
-			$file_error = $file['error'];
-
-
-//work out the file extension
-			$file_ext = explode('.',$file_name);
-			$file_ext = strtolower(end($file_ext));
-
-			$allowed = array('txt', 'jpg', 'mp4','mp3');
-
-			if($file_error === 0) {
-				if($file_size <= 209715299 * 99990000000000000000000000000000){
-					$withoutExt = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file_name);
-
-					$file_path = '/home/bite-five/Documents/Videos/'.$withoutExt.'/';
-
-
-					mkdir($file_path);
-					$file_name_new = $file['name'];
-					$file_destination = $file_path . $file_name_new;
-					if(move_uploaded_file($file_tmp, $file_destination)){
-
-						echo "Uploded";
-
-					}
-				}
-			}
-
-
-			$file_flac = $withoutExt .'.flac';
-
-			$file_flac_destination = $file_path.$file_flac;
-
-			shell_exec("ffmpeg -i $file_destination -c:a flac $file_flac_destination");
-
-			$size = "1080x720";
-			for($num = 1; $num <= 10; $num++)
-			{
-				$file_image = $withoutExt.$num . '.jpg';
-
-				$file_image_destination =$file_path.$file_image;
-				$interval = $num * 10;
-
-				shell_exec("ffmpeg -i $file_destination -an -ss $interval -s $size $file_image_destination");
-
-			}
-
-			$ex = shell_exec('curl -X POST -u b23977c3-46fd-446e-8743-da3022c26541:LmlWYrznIeU6 --header "Content-Type: audio/flac" --header "Transfer-Encoding: chunked" --data-binary @'.$file_flac_destination.' "https://stream.watsonplatform.net/speech-to-text/api/v1/recognize"');
-
-
-
-			$file_txt = $file_path.$withoutExt.'.txt';
-			$fh = fopen($file_txt, 'w') or die("can't open file");
-			fwrite($fh, $ex);
-			fclose($fh);
-		}
-
-
-		?>
-	}
-	function onShe(){
-
-	}
 </script>
 </html>
