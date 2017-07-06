@@ -38,7 +38,7 @@
 				<label class="label label-default">Select video file from your Directory</label><br><br>
 				<label for="file">Filename:</label>  
 				<input type="file" name="file" id="file"></input><br />  
-				<input type="submit" name="submit" value="upload" onclick="onHe()"></input>  
+				<input type="submit" name="submit" value="upload" onclick="Submitpress(); onGoPressed(); onpost();"></input>  
 			</form>
 
 		</div>
@@ -98,15 +98,27 @@
 				shell_exec("ffmpeg -i $file_destination -an -ss $interval -s $size $file_image_destination");
 
 			}
-
-			$ex = shell_exec('curl -X POST -u b23977c3-46fd-446e-8743-da3022c26541:LmlWYrznIeU6 --header "Content-Type: audio/flac" --header "Transfer-Encoding: chunked" --data-binary @'.$file_flac_destination.' "https://stream.watsonplatform.net/speech-to-text/api/v1/recognize"');
-
-
+				$ex = shell_exec('curl -X POST -u b23977c3-46fd-446e-8743-da3022c26541:LmlWYrznIeU6 --header "Content-Type: audio/flac" --header "Transfer-Encoding: chunked" --data-binary @'.$file_flac_destination.' "https://stream.watsonplatform.net/speech-to-text/api/v1/recognize"');
 
 			$file_txt = $file_path.$withoutExt.'.txt';
 			$fh = fopen($file_txt, 'w') or die("can't open file");
 			fwrite($fh, $ex);
 			fclose($fh);
+
+			$brand = file_get_contents('BRANDS.json');
+			$json = json_decode($brand, true);
+// print_r((array) json_decode($brand));  //prints the decoded data
+			foreach ($json as $key => $item)
+			{
+				if ($item['Names']) 
+				{
+					$data[] = $item['Names'];
+				}
+			}
+
+			
+
+			
 		}
 
 
@@ -123,42 +135,31 @@
 				<div>
 					<textarea  class="textarea_input" name="t1" rows="3" placeholder="input text here..">
 						<?php
+					
 						echo "$ex";
 						?> 
 
 
 					</textarea>
 				</div>
-				<button onclick="onGoPressed()" class="btn btn-go btn-sm">GO</button>
+				
 			</form>
 		</div>
 
 		<div id="brand">
 			<h4><label class="label label-primary">Brand Names</label></h4>
 			<?php
-			$name = "";
+
 			if(isset($_POST['t1']))
-				$name = $_POST['t1'];
+				$ex = $_POST['t1'];
 
 			?>
 			<textarea id="mytext" disabled="disable" readonly="" 
 			class="textarea_brand" name="t2" rows="3">
 			<?php
-
-			$brand = file_get_contents('BRANDS.json');
-			$json = json_decode($brand, true);
-// print_r((array) json_decode($brand));  //prints the decoded data
-			foreach ($json as $key => $item)
+				for($i=0;$i<sizeof($data);$i++)
 			{
-				if ($item['Names']) 
-				{
-					$data[] = $item['Names'];
-				}
-			}
-
-			for($i=0;$i<sizeof($data);$i++)
-			{
-				if(substr_count($name, $data[$i])>0)
+				if(substr_count($ex, $data[$i])>0)
 				{	
 					echo $data[$i]."\n";
 				}	
@@ -205,5 +206,23 @@
 </script>
 
 
+<script type="text/javascript">
+	function onpost(){
+		<?php
+
+$brand = file_get_contents('BRANDS.json');
+			$json = json_decode($brand, true);
+// print_r((array) json_decode($brand));  //prints the decoded data
+			foreach ($json as $key => $item)
+			{
+				if ($item['Names']) 
+				{
+					$data[] = $item['Names'];
+				}
+			}
+
+			
+		?>
+	}
 </script>
 </html>
