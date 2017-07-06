@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Page</title>
+	<title> AutoBrand </title>
 	<link rel="stylesheet" type="text/css" href="bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="page.css">
 
@@ -39,14 +39,14 @@
 				<label for="file">Filename:</label>  
 				<input type="file" name="file" id="file"></input><br />  
 				<input type="submit" name="submit" value="upload" onclick="Submitpress(); onGoPressed(); onpost();"></input>  
-			</form>
+			</div>
+		</form>
 
-		</div>
 
 		<?php
 		if(isset($_FILES['file'])){
 			$file = $_FILES['file'];
-//print_r($file);
+			//print_r($file);
 
 //file properties
 
@@ -60,7 +60,8 @@
 			$file_ext = explode('.',$file_name);
 			$file_ext = strtolower(end($file_ext));
 
-			$allowed = array('txt', 'jpg', 'mp4','mp3');
+//$allowed = array('txt', 'jpg', 'mp4','mp3');
+//Uploading file to /home/bite-five/Documents/Videos/{VideoName_Folder}
 
 			if($file_error === 0) {
 				if($file_size <= 209715299 * 99990000000000000000000000000000){
@@ -68,18 +69,18 @@
 
 					$file_path = '/home/bite-five/Documents/Videos/'.$withoutExt.'/';
 
-
 					mkdir($file_path);
 					$file_name_new = $file['name'];
 					$file_destination = $file_path . $file_name_new;
 					if(move_uploaded_file($file_tmp, $file_destination)){
 
-						echo "Uploded";
+						echo "File is Uploaded";
 
 					}
 				}
 			}
 
+//conversion of .mp4 to .flac using ffmpeg
 
 			$file_flac = $withoutExt .'.flac';
 
@@ -87,6 +88,8 @@
 
 			shell_exec("ffmpeg -i $file_destination -c:a flac $file_flac_destination");
 
+//taking snap from .mp4 using ffmpeg
+//Picture resolution size
 			$size = "1080x720";
 			for($num = 1; $num <= 10; $num++)
 			{
@@ -98,101 +101,74 @@
 				shell_exec("ffmpeg -i $file_destination -an -ss $interval -s $size $file_image_destination");
 
 			}
-				$ex = shell_exec('curl -X POST -u b23977c3-46fd-446e-8743-da3022c26541:LmlWYrznIeU6 --header "Content-Type: audio/flac" --header "Transfer-Encoding: chunked" --data-binary @'.$file_flac_destination.' "https://stream.watsonplatform.net/speech-to-text/api/v1/recognize"');
+//converting audio file to text file.
+
+			$ex = shell_exec('curl -X POST -u b23977c3-46fd-446e-8743-da3022c26541:LmlWYrznIeU6 --header "Content-Type: audio/flac" --header "Transfer-Encoding: chunked" --data-binary @'.$file_flac_destination.' "https://stream.watsonplatform.net/speech-to-text/api/v1/recognize"');
+
+//saving the transcript file.
 
 			$file_txt = $file_path.$withoutExt.'.txt';
 			$fh = fopen($file_txt, 'w') or die("can't open file");
 			fwrite($fh, $ex);
 			fclose($fh);
 
+//fetching the brand names from localstorage and mapping them to transcript
+
 			$brand = file_get_contents('BRANDS.json');
 			$json = json_decode($brand, true);
-// print_r((array) json_decode($brand));  //prints the decoded data
-			foreach ($json as $key => $item)
-			{
-				if ($item['Names']) 
-				{
+			// print_r((array) json_decode($brand));  //prints the decoded data
+			foreach ($json as $key => $item){
+				if ($item['Names']) {
 					$data[] = $item['Names'];
 				}
-			}
-
-			
-
-			
+			}	
 		}
-
-
 		?>
 
-
-
-		<br>
-		<br>
-
-		<div id="inputText">
-			<form  action="page.php" method='POST'>
-				<h3><label class="label label-default">Input your text</label></h3>
-				<div>
-					<textarea  class="textarea_input" name="t1" rows="3" placeholder="input text here..">
-						<?php
+	<div id="inputText">
+		<form  action="page.php" method='POST'>
+			<h3><label class="label label-default">Input your text</label></h3>
+			<div>
+				<textarea  class="textarea_input" name="t1" rows="3" placeholder="input text here..">
+					<?php
 					
 						echo "$ex";
-						?> 
-
-
-					</textarea>
-				</div>
+					?> 
+				</textarea>
+			</div>
 				
-			</form>
-		</div>
+		</form>
+	</div>
 
-		<div id="brand">
-			<h4><label class="label label-primary">Brand Names</label></h4>
+	<div id="brand">
+		<h4><label class="label label-primary">Brand Names</label></h4>
 			<?php
-
-			if(isset($_POST['t1']))
-				$ex = $_POST['t1'];
-
+				if(isset($_POST['t1']))
+					$ex = $_POST['t1'];
 			?>
 			<textarea id="mytext" disabled="disable" readonly="" 
 			class="textarea_brand" name="t2" rows="3">
-			<?php
-				for($i=0;$i<sizeof($data);$i++)
-			{
-				if(substr_count($ex, $data[$i])>0)
-				{	
-					echo $data[$i]."\n";
-				}	
-			}	
-			?> 
-		</textarea>  
-
-
-	</div>
-</div>
-
-
-
-</form>
-</div>
-</body>
-<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-		crossorigin="anonymous"></script>
-			  
-		<script>
+				<?php
+					for($i=0;$i<sizeof($data);$i++){
+						if(substr_count($ex, $data[$i])>0){	
+							echo $data[$i]."\n";
+						}	
+					}	
+				?> 
+			</textarea>  
+	</div>		  
+	<script>
 		function onGoPressed()
 		{
 
 			var newValue = document.getElementById("mytext").value;
-    		if(!localStorage.getItem("brands1"))
-    		{
+    		if(!localStorage.getItem("brands1")){
         		localStorage.setItem("brands1","[]");
     		}
-    	var list = JSON.parse(localStorage.getItem("brands1"));
-    	var exist = false;
-    		for(var i = 0;i<list.length;i++)
-        		if(list[i] == newValue)
-        		{
+    		var list = JSON.parse(localStorage.getItem("brands1"));
+    		var exist = false;
+    		for(var i = 0;i<list.length;i++){
+        		if(list[i] == newValue){
             		exist=true;
             		break;
         		}
@@ -201,28 +177,9 @@
         			console.log("EXIST");
     			}
     
-   			 localStorage.setItem("brands1",JSON.stringify(list));
-		}
-</script>
-
-
-<script type="text/javascript">
-	function onpost(){
-		<?php
-
-$brand = file_get_contents('BRANDS.json');
-			$json = json_decode($brand, true);
-// print_r((array) json_decode($brand));  //prints the decoded data
-			foreach ($json as $key => $item)
-			{
-				if ($item['Names']) 
-				{
-					$data[] = $item['Names'];
-				}
+   				localStorage.setItem("brands1",JSON.stringify(list));
 			}
-
-			
-		?>
-	}
-</script>
+	</script>
+	</div>
+</body>
 </html>
