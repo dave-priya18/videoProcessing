@@ -1,0 +1,227 @@
+body{
+		background: #35404e;
+}
+.container{
+	background:white;
+}
+
+hr{
+	border-color: #E8E8E8;
+	margin-top: ;
+}
+
+#li{
+	padding-top: 10px;
+}
+
+.container{
+	background: ;
+}
+
+#hello{
+	color: #35404e;
+	background-color: white;
+	border-radius: 2em;
+}
+
+#hello:hover,#hello:active,#hello:focus{
+
+	color: white;
+	background-color:#35404e;
+	 -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    border-radius: 0.3em;   
+}
+
+.label-default{
+	
+	position: relative;
+	background-color: #35404e;
+	color: white;
+	text-align: center;
+	font-family:  seguisym-regular, 'Open Sans', sans-serif;
+}
+.label-primary{
+	position: relative;
+	background-color: #35404e;
+	color: white;
+	text-align: center;
+	font-family:  seguisym-regular, 'Open Sans', sans-serif;
+}
+
+.textarea_input{
+	position: relative;
+	top: 10px;
+	height: 250px;
+	width: 800px;
+}
+
+.textarea_brand{
+	position: relative;
+	width: 400px;
+	height: 350px;
+	text-align:initial;
+}
+.btn-go{
+	position: relative;
+	top:20px;
+	background-color: #35404e;
+	color: white;
+	border-color: #35404e;
+		
+}
+.videoBrowser{
+	margin-top: 200px;
+	margin-left: 20%;
+}
+#select_button{
+	margin-top: 10px;
+	margin-left: 20%; 
+
+}
+.btn-go:hover, .btn-go:active , .btn-go:focus {
+	background-color: #414c5b;
+	border-color: #414c5b;
+	box-shadow:5px 5px 5px;
+	color: white;
+	font-weight: bold ;
+}
+
+#brand{
+	margin-top: 80px;
+	margin-left: 20%;
+}
+#inputText{
+	margin-top: 160px;
+	margin-left: 20%;
+}
+
+#api{
+	position: relative;
+	margin-top: 80px;
+	margin-left: 5%;
+}
+#api label{
+	margin-left: 30%;
+}
+.logo{
+	padding-top: 11px;
+	float: left;
+	margin-left: 196px;
+}
+.nav{
+	padding-top: 65px;
+	margin-left: 27.5%;
+	font-size: 15px;
+	font-family: seguisym-regular,'Open Sans', sans-serif;
+}
+#signup{
+	margin-top: 20px;
+	margin-left: -90px;
+	background-color: #fb5d5c;
+	color: white;
+	border-color: #fb5d5c;
+	border-radius: 0.3em;
+	font-size: 18px;
+}
+#signup:hover, #signup:active, #signup:focus{
+	background-color: #35404e;
+	color: white;
+	border-color: #35404e;
+	border-radius: 0.3em;
+	 -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+}
+
+#signin{
+	margin-top: 16px;
+	font-size: 16px;
+	margin-left: 22px;
+	background-color: #35404e;
+	color: white;
+	border-color: #35404e;
+	border-radius: 0.3em;
+
+}
+#signin:hover, #signin:active, #signin:focus{
+	color: white;
+	background-color: #fb5d5c;
+	border-color: #fb5d5c;
+	 -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+}
+.navbar{
+	box-shadow: 1px 1px 1px grey;
+	background-color: white;
+	border-color: grey;
+	border-spacing: 2px;
+}
+
+
+div #DAT{
+	position: relative;
+	margin-top: 10px;
+	margin-left: 50%;
+}
+
+#DAT:hover, #DAT:focus {
+	color: white;
+	background: #35404e; 
+	border-color: #35404e;
+	font-weight: bold;
+	 -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+<?php
+			$brand = file_get_contents('brands.json');
+			$json = json_decode($brand, true);
+			// print_r((array) json_decode($brand));
+
+			$abc = json_decode($brand,true);
+			// echo($brand);
+			// $brand = array('Radar','Raid','Mr Muscle','Horlicks');
+			foreach($abc as $key => $brand)
+			{
+ 			 print_r($value);
+ 			 die; //change accordingly
+			}																exit;	
+			echo($brand);		
+
+
+   			for($i=0;$i<sizeof($brand);$i++)
+   				{
+   					if(substr_count($name, $brand[$i])>0)
+   						{	
+   							echo $brand[$i]."\n";
+   						}	
+   				}			
+			
+			?> */
