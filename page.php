@@ -44,6 +44,8 @@
 
 
 		<?php
+		$ex = '';
+		$data = [];
 		if(isset($_FILES['file'])){
 			$file = $_FILES['file'];
 			//print_r($file);
@@ -103,7 +105,7 @@
 			}
 //converting audio file to text file.
 
-			$ex = shell_exec('curl -X POST -u b23977c3-46fd-446e-8743-da3022c26541:LmlWYrznIeU6 --header "Content-Type: audio/flac" --header "Transfer-Encoding: chunked" --data-binary @'.$file_flac_destination.' "https://stream.watsonplatform.net/speech-to-text/api/v1/recognize"');
+			$ex = shell_exec('curl -X POST -u USERNAME:PASSWORD --header "Content-Type: audio/flac" --header "Transfer-Encoding: chunked" --data-binary @'.$file_flac_destination.' "https://stream.watsonplatform.net/speech-to-text/api/v1/recognize"');
 
 //saving the transcript file.
 
