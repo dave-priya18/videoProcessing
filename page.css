@@ -93,17 +93,8 @@ hr{
 	margin-left: 20%;
 }
 #inputText{
-	margin-top: 160px;
+	margin-top: 5%;
 	margin-left: 20%;
-}
-
-#api{
-	position: relative;
-	margin-top: 80px;
-	margin-left: 5%;
-}
-#api label{
-	margin-left: 30%;
 }
 .logo{
 	padding-top: 11px;
@@ -197,31 +188,3 @@ div #DAT{
 
 
 
-
-
-/*
-<?php
-			$brand = file_get_contents('brands.json');
-			$json = json_decode($brand, true);
-			// print_r((array) json_decode($brand));
-
-			$abc = json_decode($brand,true);
-			// echo($brand);
-			// $brand = array('Radar','Raid','Mr Muscle','Horlicks');
-			foreach($abc as $key => $brand)
-			{
- 			 print_r($value);
- 			 die; //change accordingly
-			}																exit;	
-			echo($brand);		
-
-
-   			for($i=0;$i<sizeof($brand);$i++)
-   				{
-   					if(substr_count($name, $brand[$i])>0)
-   						{	
-   							echo $brand[$i]."\n";
-   						}	
-   				}			
-			
-			?> */
